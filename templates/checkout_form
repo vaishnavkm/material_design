@@ -1,0 +1,147 @@
+ {% csrf_token %}
+            {% for message in messages %}
+         <h9 style="background-color:lightblue"> {{message}} </h9>
+          {% endfor %}
+
+              <!--Grid row-->
+             <div class="row">
+              
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--firstName-->
+                  <div class="md-form ">
+                  {{form.first_name}}
+                    <label for="firstName" class="">First name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+                  {{form.last_name}}
+                    <label for="lastName" class="">Last name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <!--Username-->
+              <div class="md-form input-group pl-0 mb-5">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                </div>
+                <input type="text" class="form-control py-0" placeholder="Username" aria-describedby="basic-addon1">
+              </div>
+
+              <!--email-->
+              <div class="md-form mb-5">
+              {{form.email}}
+                <label for="email" class="">Email (optional)</label>
+              </div>
+
+              <!--address-->
+              <div class="md-form mb-5">
+              {{form.address}}
+                <label for="address" class="">Address</label>
+              </div>
+
+              <!--address-2-->
+              
+              <!--Grid row-->
+              <div class="row">
+
+                
+                <div class="col-lg-4 col-md-12 mb-4">
+
+                  <label for="country">Country</label>
+                   {{form.country}}
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                </div>
+                <div class="md-form mb-5">
+                {{form.state}}
+                <label for="State" class="">State (optional)</label>
+              </div>
+
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="zip">Zip</label>
+                  {{form.zip}}
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <hr>
+
+              <div class="custom-control custom-checkbox">
+              {{  form.save_billing_add }} 
+                <label >Shipping address is the same as my billing address</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+              {{ form.save_info }} 
+                <label>Save this information for next time</label>
+              </div>
+
+              <hr>
+
+              <div class="d-block my-3">
+              
+                {% for value, name in form.fields.payement.choices %}
+                <div class="custom-control custom-radio">
+                  <input id="{{ name }}" name="PaymentMethod" value="{{ value }}" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                </div>
+                {% endfor %}
+              </div>
+                
+               
+              
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+
+          </form>
+
+          </div>
+
+
+
+PaymentMethod 
+
+ var currentCardForm = $('.current-card-form');
+  var newCardForm = $('.new-card-form');
+  var use_default_card = document.querySelector("input[name=use_default_card]");
+  use_default_card.addEventListener('change', function() {
+    if (this.checked) {
+      newCardForm.hide();
+      currentCardForm.show()
+    } else {
+      newCardForm.show();
+      currentCardForm.hide()
+    }
+  })

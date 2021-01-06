@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Material Design </title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="/">Home
+            
+              <span class="sr-only">(current)</span>
+               
+            </a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <a class="nav-link waves-effect" href="/product">Product
+          <a class="nav-link waves-effect" href="/checkout">CHECKOUT
+           <a class="nav-link waves-effect" href="/ordersummaryview">CART
+           <a class="nav-link waves-effect" href="/payement">PAYEMENT 
+           <a class="nav-link waves-effect" href="/logout">Logout,{{request.user}}
+          {% else %}
+          <a class="nav-link waves-effect" href="/login">Login
+           <a class="nav-link waves-effect" href="/register">SignUp
+          {% endif %}
+          
+        </ul>
+
+        <!-- Right -->
+       
+        
+      </div>
+
+    </div>
+  </nav>
+
+
+      
+  
+
+
+
+
+  <main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h2>Order Summary</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Item Price</th>
+           
+        </tr>
+        </thead>
+        <tbody>
+        {% for order_item in object %}
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          
+          <div class="col-lg-3 col-md-6 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+              <!--Card image-->
+              
+              <div class="view overlay"><a href="product" class="dark-grey-text">
+               <tr>
+               <th scope="row">{{ forloop.counter }}</th>
+               <!--<img class="card-img-top" src="{{order_item.items.image.url}}"></div>-->
+               <td>{{ order_item.items.title }}</td>
+               <td>{{ order_item.items.price }}</td>
+               <td>{{order_item.quantity}}</td> 
+               <td>{{order_item.get_total_itemprice}}</td>
+               <td>
+               {% if order_item.items.discount %}
+               {{order_item.get_total_discount_price}}
+               <span class="badge badge-primary">saving ${{order_item.get_total_saving_price}}</span>
+               {% else %}
+               {{order_item.get_total_itemprice}}
+               {% endif %}
+                 
+
+               </td> 
+               </tr>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        
+       
+
+           
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+{% endfor %}
+
+   
+</body>
+</html>
+
